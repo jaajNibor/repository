@@ -16,7 +16,7 @@ def app():
     root.quit()  # Quitter la boucle principale de Tkinter
     root.after(10, root.destroy)  # Fermer la fenêtre avec un petit délai
 
-class TestQRCodeGen:
+class Test_QRCodeGen:
     
     def test_qr_code_generation_url_valide(self, app):
         # Test pour vérifier que le QR code est généré correctement pour une URL valide
@@ -44,9 +44,3 @@ class TestQRCodeGen:
       
         assert app.qr_image is not None, "Le QR code n'a pas été généré pour une URL très longue."
 
-'''    def test_qr_code_generation_url_non_valide(self, app):
-        #vérifier avec une mauvaise url
-        app.entry.insert(0,"hg.cette-url-n'est-pa-valide")
-        app.generate_qr_code()
-        assert not hasattr(app, 'qr_image'), "l'url est valide."
-   ''' 
