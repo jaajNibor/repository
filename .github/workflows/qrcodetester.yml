@@ -28,6 +28,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest qrcode pillow
         
-    - name: Test with pytest
+    - name: Install xvfb
+      run: sudo apt-get install -y xvfb 
+      
+   
+    - name: run with xvfb
       run: |
-        pytest
+        xvfb-run -a pytest
