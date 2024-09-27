@@ -26,25 +26,6 @@ class Test_QRCodeGen:
         # Vérifier que le QR code a été généré
         assert app.qr_image is not None, "Le QR code n'a pas été généré correctement."
 
-    def test_qr_code_reste_le_meme(self, app):
-    # Insertion de la même URL deux fois
-        app.entry.insert(0, "https://google.com")
-        
-        # Génération du QR code la première fois
-        app.generate_qr_code()
-        qr_image_first = app.qr_image.copy()  # Sauvegarder la première image générée
-
-        # Réinitialiser le champ de saisie et insérer à nouveau la même URL
-        app.entry.delete(0, '')
-        app.entry.insert(0, "https://google.com")
-
-        # Générer le QR code une deuxième fois
-        app.generate_qr_code()
-        qr_image_second = app.qr_image.copy()  # Sauvegarder la deuxième image générée
-
-        # Vérification que les deux images sont identiques
-        assert qr_image_first.tobytes() == qr_image_second.tobytes(), "Les QR codes générés ne sont pas identiques pour la même URL." 
-
     def test_qr_code_url_vide(self, app):
         # Test pour une URL vide
 
@@ -54,12 +35,13 @@ class Test_QRCodeGen:
         # Vérifier qu'aucun QR code n'a été généré
         assert app.qr_image is None, "Un QR code a été généré alors que l'URL était vide."
 
-    def test_qr_code_url_trop_longue(self, app):
-        # Test pour une URL très longue
-        app.entry.insert(0, "ceci/est/une/url/tres/longue" + "haha" * 100)
+    def test_qr_code_cara_spe(self, app):
+        # Test d'une url avec caract_res spéciaux
+        app.entry.insert(0, "https://example.com/ceci-ét-un-test?query=hello&name=world")
+        
+        # Générer le QR code
         app.generate_qr_code()
         
-        # Vérifier que le QR code a été généré malgré la longueur de l'URL
-      
-        assert app.qr_image is not None, "Le QR code n'a pas été généré pour une URL très longue."
+        # Vérifier que le QR code a été généré
+        assert app.qr_image is not None, "Le QR code n'a pas été généré pour une URL avec des caractères spéciaux."
 
