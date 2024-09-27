@@ -26,14 +26,15 @@ class Test_QRCodeGen:
         # Vérifier que le QR code a été généré
         assert app.qr_image is not None, "Le QR code n'a pas été généré correctement."
 
-    def test_qr_code_url_trop_longue(self, app):
-        # Test pour une URL très longue
-        app.entry.insert(0, "ceci/est/une/url/tres/longue" + "haha" * 100)
+    def test_qr_code_url_vide(self, app):
+        # Test pour une URL vide
+
+        app.entry.insert(0, "")  # Insérer une chaîne vide
         app.generate_qr_code()
         
-        # Vérifier que le QR code a été généré malgré la longueur de l'URL
-      
-        assert app.qr_image is not None, "Le QR code n'a pas été généré pour une URL très longue."
+        # Vérifier qu'aucun QR code n'a été généré
+        assert app.qr_image is None, "Un QR code a été généré alors que l'URL était vide."
+
 
     def test_qr_code_cara_spe(self, app):
         # Test d'une url avec caracteres non ascii
